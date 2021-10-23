@@ -1,11 +1,13 @@
 package com.xheghun.dishapp.view.activities
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.xheghun.dishapp.R
 import com.xheghun.dishapp.databinding.ActivityAddUpdateDishBinding
+import com.xheghun.dishapp.databinding.DialogCustomImageSelectionBinding
 
 class AddUpdateDishActivity : AppCompatActivity() , View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
@@ -29,9 +31,8 @@ class AddUpdateDishActivity : AppCompatActivity() , View.OnClickListener {
 
                 Toast.makeText(this, "${v.id} clicked", Toast.LENGTH_SHORT).show()
 
-                // START
-               // customImageSelectionDialog()
-                // END
+                customImageSelectionDialog()
+
                 return
             }
         }
@@ -50,7 +51,7 @@ class AddUpdateDishActivity : AppCompatActivity() , View.OnClickListener {
     }
 
 
-/*
+
     private fun customImageSelectionDialog() {
         val dialog = Dialog(this@AddUpdateDishActivity)
 
@@ -60,8 +61,6 @@ class AddUpdateDishActivity : AppCompatActivity() , View.OnClickListener {
         //The resource will be inflated, adding all top-level views to the screen.
         dialog.setContentView(binding.root)
 
-        // TODO Step 7: Assign the click for Camera and Gallery. Show the Toast message for now.
-        // START
         binding.tvCamera.setOnClickListener {
             Toast.makeText(this@AddUpdateDishActivity, "You have clicked on the Camera.", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -75,7 +74,7 @@ class AddUpdateDishActivity : AppCompatActivity() , View.OnClickListener {
 
         //Start the dialog and display it on screen.
         dialog.show()
-    }*/
+    }
 
 
 }
