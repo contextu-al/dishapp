@@ -1,4 +1,4 @@
-package com.xheghun.dishapp.ui
+package com.xheghun.dishapp.view.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,6 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.xheghun.dishapp.MainActivity
 import com.xheghun.dishapp.R
 import com.xheghun.dishapp.databinding.ActivitySplashScreenBinding
 

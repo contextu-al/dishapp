@@ -1,4 +1,4 @@
-package com.xheghun.dishapp
+package com.xheghun.dishapp.view.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.xheghun.dishapp.R
 import com.xheghun.dishapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
