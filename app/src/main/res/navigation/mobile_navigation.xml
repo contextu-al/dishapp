@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.xheghun.dishapp.view.fragments.HomeFragment"
+        android:name="com.xheghun.dishapp.view.fragments.AllDishFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_all_dish" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
