@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -62,6 +63,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
   */
         mBinding.toolbarAddDishActivity.setNavigationOnClickListener { onBackPressed() }
     }
+
+
 
 
     private fun customImageSelectionDialog() {
@@ -125,8 +128,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
                 report?.let {
                     if (report.areAllPermissionsGranted()) {
-                        val inte = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(intent, CAMERA)
+                        val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        startActivityForResult(mIntent, CAMERA)
                     }
                 }
             }
@@ -150,6 +153,9 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 data?.extras?.let {
                     val thumb: Bitmap = data.extras!!.get("data") as Bitmap
                     mBinding.ivDishImage.setImageBitmap(thumb)
+
+                    mBinding.ivAddDishImage.setImageDrawable(
+                        ContextCompat.getDrawable(this,R.drawable.ic_edit))
 
                 }
             }
