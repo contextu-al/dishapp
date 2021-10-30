@@ -13,6 +13,8 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -28,6 +30,7 @@ import com.xheghun.dishapp.databinding.DialogCustomImageSelectionBinding
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(mBinding.root)
 
         setupActionBar()
+
+        handleActivityResult()
 
         mBinding.ivAddDishImage.setOnClickListener(this@AddUpdateDishActivity)
     }
@@ -64,7 +69,22 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding.toolbarAddDishActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
+   private fun handleActivityResult() {
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
+           if (result.resultCode == Activity.RESULT_OK) {
 
+                   result.data?.extras?.let {
+                       val thumb: Bitmap = result.data!!.extras!!.get("data") as Bitmap
+                       mBinding.ivDishImage.setImageBitmap(thumb)
+
+                       mBinding.ivAddDishImage.setImageDrawable(
+                           ContextCompat.getDrawable(this,R.drawable.ic_edit))
+
+                   }
+
+           }
+       }
+   }
 
 
     private fun customImageSelectionDialog() {
@@ -91,7 +111,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         //Start the dialog and display it on screen.
         dialog.show()
     }
-
 
     private fun requestStoragePermission() {
 
@@ -129,7 +148,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 report?.let {
                     if (report.areAllPermissionsGranted()) {
                         val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(mIntent, CAMERA)
+                        resultLauncher.launch(mIntent)
                     }
                 }
             }
@@ -146,7 +165,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CAMERA) {
@@ -160,7 +179,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-    }
+    }*/
 
     private fun showRationaleDialogForPermission() {
         AlertDialog.Builder(this)
