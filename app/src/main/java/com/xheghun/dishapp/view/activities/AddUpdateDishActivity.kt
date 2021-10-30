@@ -30,7 +30,8 @@ import com.xheghun.dishapp.databinding.DialogCustomImageSelectionBinding
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var camLauncher: ActivityResultLauncher<Intent>
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,23 +70,34 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding.toolbarAddDishActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
-   private fun handleActivityResult() {
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
-           if (result.resultCode == Activity.RESULT_OK) {
+    private fun changeSelectIcon() {
+        mBinding.ivAddDishImage.setImageDrawable(
+            ContextCompat.getDrawable(this,R.drawable.ic_edit))
+    }
 
+   private fun handleActivityResult() {
+        camLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+           if (result.resultCode == Activity.RESULT_OK) {
                    result.data?.extras?.let {
                        val thumb: Bitmap = result.data!!.extras!!.get("data") as Bitmap
                        mBinding.ivDishImage.setImageBitmap(thumb)
 
-                       mBinding.ivAddDishImage.setImageDrawable(
-                           ContextCompat.getDrawable(this,R.drawable.ic_edit))
-
+                       changeSelectIcon()
                    }
 
            }
        }
-   }
 
+       galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+           result ->
+
+           if(result.resultCode == Activity.RESULT_OK) {
+               val selectedImage = result.data?.data
+               mBinding.ivDishImage.setImageURI(selectedImage)
+               changeSelectIcon()
+           }
+        }
+   }
 
     private fun customImageSelectionDialog() {
         val dialog = Dialog(this@AddUpdateDishActivity)
@@ -118,6 +130,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
             Manifest.permission.READ_EXTERNAL_STORAGE,
         ).withListener(object : PermissionListener {
             override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                val mIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                galleryLauncher.launch(mIntent)
 
             }
 
@@ -143,12 +157,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
             Manifest.permission.CAMERA
         ).withListener(object : MultiplePermissionsListener {
             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-
-
                 report?.let {
                     if (report.areAllPermissionsGranted()) {
                         val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        resultLauncher.launch(mIntent)
+                        camLauncher.launch(mIntent)
                     }
                 }
             }
