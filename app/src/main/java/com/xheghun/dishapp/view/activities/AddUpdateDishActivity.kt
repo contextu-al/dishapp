@@ -63,10 +63,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun setupActionBar() {
         setSupportActionBar(mBinding.toolbarAddDishActivity)
-
-        /*  supportActionBar?.setDisplayHomeAsUpEnabled(true)
-          supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-  */
         mBinding.toolbarAddDishActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
@@ -176,23 +172,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         }).onSameThread().check()
     }
 
-
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == CAMERA) {
-                data?.extras?.let {
-                    val thumb: Bitmap = data.extras!!.get("data") as Bitmap
-                    mBinding.ivDishImage.setImageBitmap(thumb)
-
-                    mBinding.ivAddDishImage.setImageDrawable(
-                        ContextCompat.getDrawable(this,R.drawable.ic_edit))
-
-                }
-            }
-        }
-    }*/
-
     private fun showRationaleDialogForPermission() {
         AlertDialog.Builder(this)
             .setMessage("Please allow necessary permissions to make app function properly")
@@ -210,9 +189,4 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
             }.setNegativeButton("CANCEL") { dialog, _ -> dialog.dismiss() }.show()
 
     }
-
-    companion object {
-        private const val CAMERA = 1
-    }
-
 }
