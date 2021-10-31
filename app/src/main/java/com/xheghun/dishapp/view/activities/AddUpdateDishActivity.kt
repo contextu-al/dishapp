@@ -7,15 +7,18 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.nfc.FormatException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -76,11 +79,9 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
            if (result.resultCode == Activity.RESULT_OK) {
                    result.data?.extras?.let {
                        val thumb: Bitmap = result.data!!.extras!!.get("data") as Bitmap
-                       mBinding.ivDishImage.setImageBitmap(thumb)
-
+                       loadImage(thumb, mBinding.ivDishImage)
                        changeSelectIcon()
                    }
-
            }
        }
 
@@ -89,7 +90,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
            if(result.resultCode == Activity.RESULT_OK) {
                val selectedImage = result.data?.data
-               mBinding.ivDishImage.setImageURI(selectedImage)
+               loadImage(selectedImage!!, mBinding.ivDishImage)
                changeSelectIcon()
            }
         }
@@ -188,5 +189,16 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
             }.setNegativeButton("CANCEL") { dialog, _ -> dialog.dismiss() }.show()
 
+    }
+
+    private fun loadImage(image: Any, view: ImageView) {
+        try {
+            Glide.with(this).load(image)
+                .centerCrop()
+                .into(view)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
