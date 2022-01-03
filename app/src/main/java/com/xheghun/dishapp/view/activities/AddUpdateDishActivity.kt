@@ -41,6 +41,7 @@ import com.xheghun.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.xheghun.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.xheghun.dishapp.databinding.DialogCustomListBinding
 import com.xheghun.dishapp.utils.Constants
+import com.xheghun.dishapp.utils.showToast
 import com.xheghun.dishapp.view.adapters.CustomListItemAdapter
 import java.io.File
 import java.io.FileOutputStream
@@ -71,6 +72,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding.etType.setOnClickListener(this)
         mBinding.etCategory.setOnClickListener(this)
         mBinding.etCookingTime.setOnClickListener(this)
+
+        mBinding.btnAddDish.setOnClickListener(this)
 
     }
 
@@ -117,6 +120,35 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 val ingredients = mBinding.etIngredients.text.toString().trim()
                 val cookingTime = mBinding.etCookingTime.text.toString().trim()
                 val cookingDirection = mBinding.etDirectionToCook.text.toString().trim()
+
+                when {
+                    imagePath.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_image_select))
+                    }
+                    title.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_title))
+                    }
+                    type.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_type))
+                    }
+                    category.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_category))
+                    }
+                    ingredients.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_ingredients))
+                    }
+                    cookingTime.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_cook_time))
+                    }
+                    cookingDirection.isEmpty() -> {
+                        showToast(this, resources.getString(R.string.err_msg_dish_cook_instruct))
+                    }
+
+                    else -> {
+                        showToast(this, "All entries are valid")
+                    }
+
+                }
             }
         }
     }
@@ -179,28 +211,28 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun customImageSelectionDialog() {
-         mCustomListDialog = Dialog(this@AddUpdateDishActivity)
+         val dialog = Dialog(this@AddUpdateDishActivity)
 
         val binding: DialogCustomImageSelectionBinding =
             DialogCustomImageSelectionBinding.inflate(layoutInflater)
 
         //Set the screen content from a layout resource.
         //The resource will be inflated, adding all top-level views to the screen.
-        mCustomListDialog.setContentView(binding.root)
+        dialog.setContentView(binding.root)
 
         binding.tvCamera.setOnClickListener {
-            mCustomListDialog.dismiss()
+            dialog.dismiss()
             requestCamPermission()
         }
 
         binding.tvGallery.setOnClickListener {
-            mCustomListDialog.dismiss()
+            dialog.dismiss()
             requestStoragePermission()
         }
         // END
 
         //Start the dialog and display it on screen.
-        mCustomListDialog.show()
+        dialog.show()
     }
 
     private fun requestStoragePermission() {
@@ -331,17 +363,17 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun customItemDialog(title: String, itemsList: List<String>, selection: String) {
-       val customListDialog = Dialog(this)
+        mCustomListDialog = Dialog(this)
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
 
-        customListDialog.setContentView(binding.root)
+        mCustomListDialog.setContentView(binding.root)
 
         binding.tvTitle.text = title
         binding.rvList.layoutManager = LinearLayoutManager(this)
 
         val adapter = CustomListItemAdapter(this, itemsList, selection)
         binding.rvList.adapter = adapter
-        customListDialog.show()
+        mCustomListDialog.show()
     }
 
     companion object {

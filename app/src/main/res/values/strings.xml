@@ -21,6 +21,14 @@
     <string name="title_select_dish_categoty">Select Dish Category</string>
     <string name="title_select_dish_cooking_time">Select Dish Cooking Time</string>
 
+    <string name="err_msg_dish_image_select">No Dish Image</string>
+    <string name="err_msg_dish_title">Provide dish title</string>
+    <string name="err_msg_dish_type">Select dish type</string>
+    <string name="err_msg_dish_category">Select dish category</string>
+    <string name="err_msg_dish_ingredients">Enter dish ingredients</string>
+    <string name="err_msg_dish_cook_time">Select dish cooking time</string>
+    <string name="err_msg_dish_cook_instruct">Enter dish cooking instructions.</string>
+
     <!--TODO Step 4: Add the string values to the strings.xml file.-->
     <!--START-->
     <string name="title_select_image_action">Select Image Action</string>
