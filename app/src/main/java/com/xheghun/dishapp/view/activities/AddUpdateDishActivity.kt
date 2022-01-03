@@ -109,6 +109,15 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 )
                 return
             }
+
+            R.id.btn_add_dish -> {
+                val title = mBinding.etTitle.text.toString().trim()
+                val type = mBinding.etType.text.toString().trim()
+                val category = mBinding.etCategory.text.toString().trim()
+                val ingredients = mBinding.etIngredients.text.toString().trim()
+                val cookingTime = mBinding.etCookingTime.text.toString().trim()
+                val cookingDirection = mBinding.etDirectionToCook.text.toString().trim()
+            }
         }
     }
 
