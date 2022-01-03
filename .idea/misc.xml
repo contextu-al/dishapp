@@ -10,6 +10,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_custom_image_selection.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/dialog_custom_list.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/item_custom_list.xml" value="0.20052083333333334" />
         <entry key="app/src/main/res/menu/menu_all_dishes.xml" value="0.18958333333333333" />
       </map>
     </option>
