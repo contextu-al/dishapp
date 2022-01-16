@@ -9,4 +9,6 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
     suspend fun insertFavDiah(favDish: FavDish) {
         favDishDao.insertFavDishDetails(favDish)
     }
+
+     val allDishesList = favDishDao.getAllDishesList()
 }

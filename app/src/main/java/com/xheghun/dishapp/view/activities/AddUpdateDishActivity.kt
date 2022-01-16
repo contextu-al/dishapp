@@ -19,6 +19,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,12 +38,16 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
 import com.xheghun.dishapp.R
+import com.xheghun.dishapp.application.FavDishApplication
 import com.xheghun.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.xheghun.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.xheghun.dishapp.databinding.DialogCustomListBinding
+import com.xheghun.dishapp.models.entities.FavDish
 import com.xheghun.dishapp.utils.Constants
 import com.xheghun.dishapp.utils.showToast
 import com.xheghun.dishapp.view.adapters.CustomListItemAdapter
+import com.xheghun.dishapp.viewmodel.FavDishViewModel
+import com.xheghun.dishapp.viewmodel.FavDishViewModelFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -57,6 +62,11 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private var imagePath: String = ""
 
     private lateinit var mCustomListDialog: Dialog
+
+
+    private val mFavDishViewModel: FavDishViewModel by viewModels {
+        FavDishViewModelFactory((application as FavDishApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,7 +155,25 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     }
 
                     else -> {
+
+                        val favDishDetails = FavDish(
+                            imagePath,
+                            Constants.DISH_IMAGE_SOURCE_LOCAL,
+                            title,
+                            type,
+                            category,
+                            ingredients,
+                            cookingTime,
+                            cookingDirection,
+                            false
+                        )
+
+                        mFavDishViewModel.insert(favDishDetails)
+
                         showToast(this, "All entries are valid")
+
+                        finish()
+
                     }
 
                 }
@@ -169,7 +197,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
     fun selectedListItem(item: String, selection: String) {
         mCustomListDialog.dismiss()
-        when(selection) {
+        when (selection) {
             Constants.DISH_TYPE -> {
                 mBinding.etType.setText(item)
             }
@@ -211,7 +239,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun customImageSelectionDialog() {
-         val dialog = Dialog(this@AddUpdateDishActivity)
+        val dialog = Dialog(this@AddUpdateDishActivity)
 
         val binding: DialogCustomImageSelectionBinding =
             DialogCustomImageSelectionBinding.inflate(layoutInflater)
