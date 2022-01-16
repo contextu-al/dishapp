@@ -4,27 +4,18 @@ plugins {
     id 'kotlin-kapt'
 }
 
-def static getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyyy-MM-dd')
-    return formattedDate
-}
-
 android {
-    compileSdk 31
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.xheghun.dishapp"
-        minSdk 21
-        targetSdk 31
+        applicationId "xheghun.dishapp"
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode 1
-        versionName "1.0 - ${getDate()}"
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    packagingOPtions {
-        exclude 'META-INF/atomicfu.kotlin_module'
     }
 
     buildTypes {
@@ -37,9 +28,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
