@@ -9,7 +9,7 @@ import java.lang.IllegalArgumentException
 class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() {
 
     fun insert(dish: FavDish) = viewModelScope.launch {
-        repository.insertFavDiah(dish)
+        repository.insertFavDish(dish)
     }
 
 

@@ -6,7 +6,7 @@ import com.xheghun.dishapp.models.entities.FavDish
 class FavDishRepository(private val favDishDao: FavDishDao) {
 
     @WorkerThread
-    suspend fun insertFavDiah(favDish: FavDish) {
+    suspend fun insertFavDish(favDish: FavDish) {
         favDishDao.insertFavDishDetails(favDish)
     }
 

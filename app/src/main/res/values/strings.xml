@@ -35,5 +35,10 @@
     <string name="lbl_camera">Camera</string>
     <string name="lbl_gallery">Gallery</string>
     <string name="title_select_image">Select Image</string>
+    <string name="no_dish_added_yet">No dishes added yet</string>
+    <string name="dish_image">Image of a dish</string>
+    <string name="title_random_dish">Random Dish</string>
+    <string name="title_fav_dishes">Fav Dishes</string>
+    <string name="title_all_dishes">All Dishes</string>
     <!--END-->
 </resources>
