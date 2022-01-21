@@ -17,7 +17,7 @@ class RandomDishFragment : Fragment() {
     private var _binding: FragmentRandomDishesBinding? = null
 
     // This property is only valid between onCreateView and
-    // onDestroyView.
+    // onDestroyView. xyz
     private val binding get() = _binding!!
 
     override fun onCreateView(
