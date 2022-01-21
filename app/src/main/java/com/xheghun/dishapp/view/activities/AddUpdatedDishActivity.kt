@@ -6,7 +6,7 @@ import com.xheghun.dishapp.R
 
 class AddUpdatedDishActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        //init
+        //init xix
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_update_dish)
     }
