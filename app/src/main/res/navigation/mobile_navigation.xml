@@ -9,7 +9,11 @@
         android:id="@+id/navigation_all_dishes"
         android:name="com.xheghun.dishapp.view.fragments.AllDishFragment"
         android:label="@string/title_all_dishes"
-        tools:layout="@layout/fragment_all_dish" />
+        tools:layout="@layout/fragment_all_dish" >
+        <action
+            android:id="@+id/action_navigation_all_dishes_to_dish_details_fragment"
+            app:destination="@id/dish_details_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_fav_dishes"
@@ -22,4 +26,13 @@
         android:name="com.xheghun.dishapp.view.fragments.RandomDishFragment"
         android:label="@string/title_random_dish"
         tools:layout="@layout/fragment_random_dishes" />
+
+    <fragment android:id="@+id/dish_details_fragment"
+        android:name="com.xheghun.dishapp.view.fragments.DishDetailsFragment"
+        android:label="@string/dish_details"
+        tools:layout="@layout/fragment_dish_details">
+        <argument android:name="dishDetails"
+            app:argType="com.xheghun.dishapp.models.entities.FavDish"
+            />
+    </fragment>
 </navigation>

@@ -2,18 +2,17 @@ package com.xheghun.dishapp.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xheghun.dishapp.R
 import com.xheghun.dishapp.application.FavDishApplication
 import com.xheghun.dishapp.databinding.FragmentAllDishBinding
+import com.xheghun.dishapp.models.entities.FavDish
 import com.xheghun.dishapp.view.activities.AddUpdateDishActivity
+import com.xheghun.dishapp.view.activities.MainActivity
 import com.xheghun.dishapp.view.adapters.FavDishAdapter
 import com.xheghun.dishapp.viewmodel.FavDishViewModel
 import com.xheghun.dishapp.viewmodel.FavDishViewModelFactory
@@ -79,6 +78,22 @@ class AllDishFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun navToDishDetails(favDish: FavDish) {
+        findNavController().navigate(AllDishFragmentDirections.actionNavigationAllDishesToDishDetailsFragment(favDish))
+        if (requireActivity() is MainActivity) {
+            (activity as MainActivity).hideBottomNavView()
+
+        }
+    }
+
+    override fun onResume() {
+        if (requireActivity() is MainActivity) {
+            (activity as MainActivity).showBottomNavView()
+
+        }
+        super.onResume()
     }
 
     override fun onDestroyView() {

@@ -26,8 +26,6 @@
     <string name="err_msg_dish_cook_time">Select dish cooking time</string>
     <string name="err_msg_dish_cook_instruct">Enter dish cooking instructions.</string>
 
-    <!--TODO Step 4: Add the string values to the strings.xml file.-->
-    <!--START-->
     <string name="title_select_image_action">Select Image Action</string>
     <string name="lbl_camera">Camera</string>
     <string name="lbl_gallery">Gallery</string>
@@ -37,5 +35,10 @@
     <string name="title_random_dish">Random Dish</string>
     <string name="title_fav_dishes">Fav Dishes</string>
     <string name="title_all_dishes">All Dishes</string>
-    <!--END-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dish_details">Dish Details</string>
+
+
+    <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
+
 </resources>

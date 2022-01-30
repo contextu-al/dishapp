@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.xheghun.dishapp.databinding.ItemDishLayoutBinding
 import com.xheghun.dishapp.models.entities.FavDish
+import com.xheghun.dishapp.view.fragments.AllDishFragment
 
 class FavDishAdapter(private val fragment: Fragment) :
     RecyclerView.Adapter<FavDishAdapter.ViewHolder>() {
@@ -26,6 +27,12 @@ class FavDishAdapter(private val fragment: Fragment) :
 
         Glide.with(fragment).load(dish.image).into(holder.ivDisImageView)
         holder.tvTitle.text = dish.title
+
+        holder.itemView.setOnClickListener {
+            if (fragment is AllDishFragment) {
+                fragment.navToDishDetails(dish)
+            }
+        }
     }
 
     fun dishesList(list: List<FavDish>) {
