@@ -20,11 +20,11 @@ import com.bumptech.glide.request.target.Target
 import com.xheghun.dishapp.R
 import com.xheghun.dishapp.application.FavDishApplication
 import com.xheghun.dishapp.databinding.FragmentDishDetailsBinding
+import com.xheghun.dishapp.models.entities.FavDish
 import com.xheghun.dishapp.utils.capitalize
 import com.xheghun.dishapp.viewmodel.FavDishViewModel
 import com.xheghun.dishapp.viewmodel.FavDishViewModelFactory
 import java.io.IOException
-import java.util.*
 
 class DishDetailsFragment : Fragment() {
 
@@ -43,6 +43,14 @@ class DishDetailsFragment : Fragment() {
         mBinding = FragmentDishDetailsBinding.inflate(inflater,container,false)
 
         return mBinding.root
+    }
+
+    private fun setFavIcon(favDish: FavDish) {
+        if(favDish.isFavDish) {
+            mBinding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_selected))
+        } else {
+            mBinding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_unselected))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,18 +106,15 @@ class DishDetailsFragment : Fragment() {
             mBinding.tvIngredients.text = dish.ingredients
             mBinding.tvCookingDirection.text = dish.directionsToCook
             mBinding.tvCookingTime.text = resources.getString(R.string.lbl_estimate_cooking_time, dish.cookingTime)
+            setFavIcon(args.dishDetails)
         }
 
 
         mBinding.ivFavoriteDish.setOnClickListener {
-            args.dishDetails.favDish = !args.dishDetails.favDish
+            args.dishDetails.isFavDish = !args.dishDetails.isFavDish
             mFavDishViewModel.updateDish(args.dishDetails)
 
-            if(args.dishDetails.favDish) {
-                mBinding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_selected))
-            } else {
-                mBinding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_unselected))
-            }
+            setFavIcon(args.dishDetails)
         }
 
 
